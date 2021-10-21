@@ -71,10 +71,10 @@ def Left():  # Left
 
 
 def gstreamer_pipeline(
-        capture_width=160,
-        capture_height=120,
-        display_width=160,
-        display_height=120,
+        capture_width=260,
+        capture_height=220,
+        display_width=260,
+        display_height=220,
         framerate=30,
         flip_method=0,
 ):
@@ -98,16 +98,19 @@ def gstreamer_pipeline(
     )
 
 
+cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
+
 while True:
 
     # Capture the frames
 
-    ret, frame = cv2.VideoCapture(gstreamer_pipeline(flip_method=0), cv2.CAP_GSTREAMER)
+   
+    ret, img = cap.read()
+    
 
     # Crop the image
-
-    crop_img = frame[60:120, 0:160]
-
+    if img is not None:
+     crop_img = img[60:220, 0:260]
     # Convert to grayscale
 
     gray = cv2.cvtColor(crop_img, cv2.COLOR_BGR2GRAY)
@@ -143,24 +146,31 @@ while True:
         cv2.drawContours(crop_img, contours, -1, (0, 255, 0), 1)
 
         if cx >= 120:
+			Left()
             print("Turn Left!")
 
         if 120 > cx > 50:
+			Forward()
             print("On Track!")
 
         if cx <= 50:
+			Right()
             print("Turn Right")
 
 
 
     else:
-
+		Stop()
         print("I don't see the line")
 
-    # Display the resulting frame
+     # Display the resulting frame
 
+    
     cv2.imshow('frame', crop_img)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
+
+
 GPIO.cleanup()
+
