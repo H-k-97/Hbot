@@ -147,7 +147,7 @@ while True:
         if cx >= 120:
             offset_x = (cx - 60)
             Right()
-            print("Turn Left!")
+            print("Turn Right!")
 
         if cx < 120 and cx > 50:
             Forward()
@@ -156,7 +156,7 @@ while True:
         if cx <= 50:
             offset_x = (60 - (60 - cx))
             Left()
-            print("Turn Right")
+            print("Turn Left")
 
 
 
