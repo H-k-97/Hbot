@@ -146,21 +146,21 @@ while True:
         cv2.drawContours(crop_img, contours, -1, (0, 255, 0), 1)
 
         if cx >= 120:
-			Left()
+	    Left()
             print("Turn Left!")
 
         if 120 > cx > 50:
-			Forward()
+	    Forward()
             print("On Track!")
 
         if cx <= 50:
-			Right()
+	    Right()
             print("Turn Right")
 
 
 
     else:
-		Stop()
+	Stop()
         print("I don't see the line")
 
      # Display the resulting frame
